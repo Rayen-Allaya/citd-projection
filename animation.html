@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Animation</title>
+    <link rel="stylesheet" href=".//assets/css/projection/animation.css" />
+  </head>
+
+  <body>
+    <script></script>
+    <!-- Please typing your favorite word!-->
+    <div id="ui">
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+      <div class="text">CODE IN THE DARK 3.0</div>
+    </div>
+    <div
+      id="overlay"
+      class="overlay"
+      style="
+        position: absolute;
+        z-index: 50;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <video id="video" style="max-width: 90vw; max-height: 90vh" controls>
+        <source id="source-video" src="" type="video/mp4" />
+      </video>
+    </div>
+    <script>
+      let videoLocalStorage = localStorage.getItem("video");
+      var current_vid;
+      if (!videoLocalStorage) {
+        localStorage.setItem("video", "1");
+        current_vid = "1";
+      } else {
+        current_vid = ((Number(videoLocalStorage) % 4) + 1).toString();
+        localStorage.setItem("video", current_vid);
+      }
+      document
+        .getElementById("source-video")
+        .setAttribute("src", "./assets/videos/" + current_vid + ".mp4");
+
+      let video = document.getElementById("video");
+      video.load();
+      video.play();
+      video.addEventListener("ended", function () {
+        document.getElementById("overlay").style.display = "none";
+      });
+    </script>
+    <script src="./assets/js/common/index.js"></script>
+    <script>
+      async function getRound() {
+        let round = await fetchCurrentRound();
+        await setRoundLocalhost(round);
+        if (round) {
+          if (round.status == "pending") {
+            window.location.href = "./posts_organisation.html";
+          }
+
+          now = new Date();
+          end_time = new Date(round.end_time);
+          if (round.status == "active" && now < end_time) {
+            window.location.href = "./countdown.html";
+          }
+        }
+      }
+      getRound();
+      setInterval(() => {
+        getRound();
+      }, 10 * 1000);
+    </script>
+  </body>
+</html>
